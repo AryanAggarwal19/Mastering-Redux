@@ -2,14 +2,21 @@
 import { createStore, applyMiddleware } from "redux"
 import logger from "redux-logger";
 
+//action constants
+const inc = "increment";
+const dec = "decrement";
+const incByAmt = "incrementByPayload";
+
 //store setup
 const store = createStore(reducer,applyMiddleware(logger.default));
 
 const history=[];
 
+
+
 function reducer(state={amount:1}, action){
     
-if(action.type==='increment'){
+if(action.type===inc){
     //immutability
 //  state.amount= state.amount+1; (wrong practice)
 
@@ -17,10 +24,10 @@ if(action.type==='increment'){
     }
     // return state; //newstate
 
-if(action.type==='decrement'){
+if(action.type===dec){
     return {amount: state.amount-1 };
 }
-if(action.type==='incrementByAmount'){ //use of payload
+if(action.type===incByAmt){ //use of payload
     return {amount:state.amount+ action.payload};
 }
 }
@@ -41,8 +48,21 @@ if(action.type==='incrementByAmount'){ //use of payload
 
 //store.dispatch({type:'increment'})
 
+/****************************************************/
+
+//Action Creators
+function increment(){
+    return {type:inc};
+}
+function decrement(){
+    return {type:ḍec};
+}
+function incrementByAmount(value){
+    return {type:incByAmt, payload:value};
+}
+
 setInterval(()=>{
-    store.dispatch({type:'incrementByAmount', payload:4})
+    store.dispatch(incrementByAmount(5));
 },2000);
 
 
